@@ -1,6 +1,7 @@
 <?php
 
-
+header('Content-Type: application/csv');
+header('Content-Disposition: attachment; filename=content_items.csv');
 require('config.php');
 
 $json_arr = [];
@@ -66,28 +67,9 @@ $conn->close();
 //fputcsv($filehandle, array_keys($json_arr[0]));
 $out = fopen('php://output', 'w');
 fputcsv($out, array_keys($json_arr[0]));
-echo '<br>';
 foreach($json_arr as $row){
     fputcsv($out, $row);
-    echo '<br>';
+
 }
 
 fclose($out);
-//function generateCsv($data, $delimiter = ',', $enclosure = '"') {
-//    $handle = fopen('php://temp', 'r+');
-//    foreach ($data as $line) {
-//        fputcsv($handle, $line, $delimiter, $enclosure);
-//    }
-//    rewind($handle);
-//    $contents="";
-//    while (!feof($handle)) {
-//        $contents .= fread($handle, 8192);
-//    }
-//    fclose($handle);
-//    return $contents;
-//}
-//echo generateCsv($json_arr);
-//echo json_encode($json_arr);
-
-
-?>
